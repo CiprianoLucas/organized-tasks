@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pr-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="static/js/jquery-3.7.1.min.js"></script>
+    <script src="static/js/jquery-ui.min.js"></script>
+    <script src="static/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="static/css/jquery-ui.css">
+    <link rel="stylesheet" href="static/css/jquery-ui.min.css">
+    <link rel="shortcut icon" type="ico" href="./static/img/icon.ico">
+    <link rel="stylesheet" href="static/css/tasks.css">
+    <title>Tasks</title>
+</head>
+
+<body class="bg-dark">
+
+    <nav class="d-flex column-gap-2 p-1">
+        <div>
+            <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#concluded"
+                aria-controls="offcanvasExample">
+                <i class="bi bi-clipboard2-check"></i>
+            </button>
+        </div>
+
+        <div class="ui-widget input-group align-self-center">
+            <input type="text" class="form-control bg-light" placeholder="Pesquisar" id="tags">
+            <i class="bi bi-search input-group-text"></i>
+        </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+            <i class="bi bi-funnel"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header bg-primary text-white">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Filtrar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                ...
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="concluded"
+        aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header text-white bg-success">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">TAREFAS CONCLUÍDAS</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body placeTasks" id="concludedTasks">
+        </div>
+    </div>
+
+
+
+
+    <main class="bg-light text-black">
+        <div class="accordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        EXPIRADO
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#collapse-body">
+                    <div class="accordion-body">
+                        <div class="placeTasks" id="expired">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        HOJE
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#collapse-body">
+                    <div class="accordion-body">
+                        <div class="placeTasks" id="today">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        AMANHÃ
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#collapse-body">
+                    <div class="accordion-body">
+                        <div class="placeTasks" id="tomorrow">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        OUTROS
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#collapse-body">
+                    <div class="accordion-body">
+                        <div class="placeTasks" id="others">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-success btn-lg plus-button" data-bs-toggle="modal"
+            data-bs-target="#plusTaskModal">
+            <i class="bi bi-plus-circle"></i>
+        </button>
+
+    </main>
+
+    <div class="modal fade" id="plusTaskModal" tabindex="-1" aria-labelledby="plusTaskLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="plusTaskLabel">NOVA TAREFA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="plusTaskForm" novalidate>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="titleInput" class="form-label">Nome da tarefa</label>
+                            <input type="text" name="titleTask" class="form-control" id="titleInput" required>
+                            <div class="invalid-feedback">
+                                Por favor, informe um título.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descriptionInput" class="form-label">Descrição</label>
+                            <textarea name="description" id="descriptionInput" cols="30" rows="5" class="form-control" required></textarea>
+                            <div class="invalid-feedback">
+                                Por favor, informe uma descrição.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateTask" class="form-label">Quadro</label>
+                            <input type="date" class="form-control" id="dateTask" required>
+                            <div class="invalid-feedback">
+                                Por favor, informe uma data.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar tarefa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class=" m-3 text-white-50 text-center">
+        <p>© Todos os direitos reservados por Lucas Cipriano</p>
+    </footer>
+
+
+    <script src="static/js/tasks.js"></script>
+</body>
+
+</html>

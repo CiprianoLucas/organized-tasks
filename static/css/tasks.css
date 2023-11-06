@@ -1,0 +1,9 @@
+nav{
+    background-color: rgb(199, 68, 35);
+}
+
+.plus-button {
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+}
