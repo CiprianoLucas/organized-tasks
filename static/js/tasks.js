@@ -5,6 +5,7 @@ $(document).ready(() => {
     const $titleInput = $("#titleInput");
     const $descriptionInput = $("#descriptionInput");
     const $dateTask = $("#dateTask");
+    const $findInput = $("#tags")
 
     const availableTags = []
     const myTasks = []
@@ -26,6 +27,29 @@ $(document).ready(() => {
 
         return $button;
     };
+
+
+    const filterTasks = () => {
+        const findInput = $findInput.val().toLowerCase()
+        const $searc = $("#searc")
+
+        const $tasks = $(".placeTasks")
+        $.each($tasks, (_, task) => {
+            const $task = $(task);
+            const title = $task.find(".fs-5").text().toLowerCase();
+            const dateTask = $task.find("span").text().split("/");
+
+            if(!title.includes(findInput)){
+                $task.hide()
+
+            }
+            else{
+                $task.show();
+            }
+        })
+
+
+    }
 
 
     const optionsDate = {
@@ -102,7 +126,7 @@ $(document).ready(() => {
         ids += 1;
         availableTags.push(title)
 
-        const $newTask = $("<div></div>").addClass(`p-2 bg-dark-subtle border border-dark-subtle border-2 rounded tk${ids}`);
+        const $newTask = $("<div></div>").addClass("p-2 mb-2 bg-white border border-dark-subtle border-2 rounded placeTasks");
         const $divText = $("<div></div>")
         const $taskTitle = $("<p></p>").text(title).addClass("fw-semibold fs-5");
         const $taskDescription = $("<p></p>").text(description);
@@ -186,5 +210,7 @@ $(document).ready(() => {
     $("#tags").autocomplete({
         source: availableTags
     });
+
+    $findInput.on("keyup", filterTasks)
 
 })
